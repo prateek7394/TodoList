@@ -57,22 +57,14 @@ app.get("/", function(req,res){
 
 app.post("/", function(req,res){
 
-    // console.log(req.body);
-    
-    var item = req.body.newItem;
+    const itemName = req.body.newItem
 
-    // Here we used the submit button name and its value to distinguish where to add our new item 
-    
-    if(req.body.list == "WorkList"){
-        workItems.push(item);
-        res.redirect("/work");
-    }
-    
-    else{
-        const item = req.body.newItem;
-        items.push(item);
-        res.redirect("/");
-    }
+    const Item =  new item({
+        name: itemName
+    })
+
+    Item.save()
+    res.redirect("/");
 
 })
 
