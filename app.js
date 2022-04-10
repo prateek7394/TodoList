@@ -37,8 +37,12 @@ app.get("/", function(req,res){
     const day = date.getDate();
 
     item.find({}, function(err,foundItems){
+        if(err){
+            console.log(err)
+        }
         
         if(foundItems.length==0){
+            // This condition ensures that our default items are added only once
             item.insertMany(defaultItems, function(err){
                 if(err){
                     console.log(err)
@@ -58,16 +62,26 @@ app.get("/", function(req,res){
 app.post("/", function(req,res){
 
     const itemName = req.body.newItem
-
     const Item =  new item({
         name: itemName
     })
-
     Item.save()
     res.redirect("/");
-
 })
 
+app.post("/delete", function(req,res){
+    const checkeditemID = req.body.checkbox
+
+    item.findByIdAndRemove(checkeditemID,function(err){
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log("Checked item successfully removed!")
+        }
+        res.redirect("/")
+    })
+})
 app.get("/work", function(req,res){
     res.render("list", {listTitle: "WorkList", newListItems: workItems});
 });
