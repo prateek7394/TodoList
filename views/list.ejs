@@ -3,27 +3,31 @@
 <%- include('header'); -%>
 
 <body>
-    <div class="box" id="heading">
+    
+<div class="box" id="heading">
     <h1><%= listTitle %></h1>
 </div>
 
-<!-- We created another delete route for deleting tasks -->
+<!-- We created another delete route for removing tasks when checked -->
 <!-- onChange="this.form.submit()" submits the form when checkbox is checked i.e. what submit button does -->
 
 <div class="box">
     <%   newListItems.forEach(function(item){ %>
+
         <form action="/delete" method="post">
         <div class="item">
             <input type="checkbox" name="checkbox" value="<%= item. _id %>"  onChange="this.form.submit()" >
             <p><%= item.name %></p>
         </div>
+        <input type="hidden" name="listName" value="<%= listTitle %>">
     </form>
     <% }) %> 
 
     <form class = "item" action="/" method="post">
-        <input type="text" name="newItem" placeholder="Click to add new task" autocomplete="off">
-        <button type="submit" name="list" value= <%= listTitle %> >+</button>
+        <input type="text" name="newItem" placeholder="Click here to add new task" autocomplete="off">
+        <button type="submit" name="list" value= "<%=listTitle %>">+</button>
     </form>
+
 </div>
 
 </body>
