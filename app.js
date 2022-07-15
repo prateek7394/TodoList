@@ -145,7 +145,7 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-const port = process.env.port;
+const port = process.env.PORT;
 
 app.listen(port || 1111, function () {
   console.log("Server running on port 1111");
